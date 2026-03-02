@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Live Timer</title>
+<style>
+body {
+  margin: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#timer {
+  font-size: 100px;
+  font-weight: bold;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+
+<div id="timer">00:00:00</div>
+
+<script>
+let seconds = localStorage.getItem("savedTime")
+  ? parseInt(localStorage.getItem("savedTime"))
+  : 0;
+
+function updateTimer() {
+  seconds++;
+  localStorage.setItem("savedTime", seconds);
+
+  let hrs = Math.floor(seconds / 3600);
+  let mins = Math.floor((seconds % 3600) / 60);
+  let secs = seconds % 60;
+
+  document.getElementById("timer").innerText =
+    String(hrs).padStart(2, '0') + ":" +
+    String(mins).padStart(2, '0') + ":" +
+    String(secs).padStart(2, '0');
+}
+
+setInterval(updateTimer, 1000);
+</script>
+
+</body>
+</html>
