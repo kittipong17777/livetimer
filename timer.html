@@ -5,15 +5,16 @@
 <title>Live Timer</title>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: transparent;
+html {
+  background: transparent !important;
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -26,26 +27,21 @@ body {
   font-family: Arial, sans-serif;
   text-shadow: 0 0 25px rgba(0,0,0,0.9);
 }
-
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 20px;
-}
 </style>
+
 </head>
 <body>
 
 <div id="timer">00:00:00</div>
-<button onclick="startTimer()">Start</button>
-<button onclick="stopTimer()">Stop</button>
 
 <script>
-let seconds = 0;
-let interval = null;
+let seconds = localStorage.getItem("savedTime")
+  ? parseInt(localStorage.getItem("savedTime"))
+  : 0;
 
 function updateTimer() {
   seconds++;
+  localStorage.setItem("savedTime", seconds);
 
   let hrs = Math.floor(seconds / 3600);
   let mins = Math.floor((seconds % 3600) / 60);
@@ -57,16 +53,7 @@ function updateTimer() {
     String(secs).padStart(2, '0');
 }
 
-function startTimer() {
-  if (!interval) {
-    interval = setInterval(updateTimer, 1000);
-  }
-}
-
-function stopTimer() {
-  clearInterval(interval);
-  interval = null;
-}
+setInterval(updateTimer, 1000);
 </script>
 
 </body>
