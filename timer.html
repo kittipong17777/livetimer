@@ -5,15 +5,14 @@
 <title>Live Timer</title>
 
 <style>
-html {
-  background: transparent !important;
-}
-
-body {
+html, body {
   margin: 0;
   padding: 0;
   background: transparent !important;
   overflow: hidden;
+}
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +24,7 @@ body {
   font-weight: bold;
   color: white;
   font-family: Arial, sans-serif;
-  text-shadow: 0 0 25px rgba(0,0,0,0.9);
+  text-shadow: 0 0 30px rgba(0,0,0,0.9);
 }
 </style>
 
@@ -35,9 +34,15 @@ body {
 <div id="timer">00:00:00</div>
 
 <script>
-let seconds = localStorage.getItem("savedTime")
-  ? parseInt(localStorage.getItem("savedTime"))
-  : 0;
+// ถ้ายังไม่มีเวลาเก่า จะเริ่มที่ 5:47:00
+let seconds;
+
+if (localStorage.getItem("savedTime")) {
+  seconds = parseInt(localStorage.getItem("savedTime"));
+} else {
+  seconds = (5 * 3600) + (47 * 60) + 0;
+  localStorage.setItem("savedTime", seconds);
+}
 
 function updateTimer() {
   seconds++;
