@@ -34,13 +34,13 @@ body {
 <div id="timer">00:00:00</div>
 
 <script>
-// ถ้ายังไม่มีเวลาเก่า จะเริ่มที่ 5:47:00
+// ถ้ายังไม่มีเวลาเก่า จะเริ่มที่ 5:40:00
 let seconds;
 
 if (localStorage.getItem("savedTime")) {
   seconds = parseInt(localStorage.getItem("savedTime"));
 } else {
-  seconds = (5 * 3600) + (47 * 60) + 0;
+  seconds = (5 * 3600) + (40 * 60) + 0; // 05:40:00
   localStorage.setItem("savedTime", seconds);
 }
 
