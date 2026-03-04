@@ -11,14 +11,12 @@ html, body {
   background: transparent !important;
   overflow: hidden;
 }
-
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-
 #timer {
   font-size: 100px;
   font-weight: bold;
@@ -27,26 +25,20 @@ body {
   text-shadow: 0 0 30px rgba(0,0,0,0.9);
 }
 </style>
-
 </head>
 <body>
 
-<div id="timer">00:00:00</div>
+<div id="timer">05:40:00</div>
 
 <script>
-let seconds;
+// 🔥 ลบค่าเก่าทิ้งทันที
+localStorage.removeItem("savedTime");
 
-// ถ้ายังไม่มีค่าเก่า → เริ่มที่ 5:40:00
-if (localStorage.getItem("savedTime")) {
-  seconds = parseInt(localStorage.getItem("savedTime"));
-} else {
-  seconds = (5 * 3600) + (40 * 60); // 05:40:00
-  localStorage.setItem("savedTime", seconds);
-}
+// เริ่มใหม่ที่ 05:40:00
+let seconds = (5 * 3600) + (40 * 60);
 
 function updateTimer() {
   seconds++;
-  localStorage.setItem("savedTime", seconds);
 
   let hrs = Math.floor(seconds / 3600);
   let mins = Math.floor((seconds % 3600) / 60);
@@ -58,7 +50,6 @@ function updateTimer() {
     String(secs).padStart(2, '0');
 }
 
-updateTimer();
 setInterval(updateTimer, 1000);
 </script>
 
