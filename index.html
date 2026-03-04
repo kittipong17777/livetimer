@@ -28,17 +28,24 @@ body {
 </head>
 <body>
 
-<div id="timer">05:40:00</div>
+<div id="timer">00:00:00</div>
 
 <script>
-// 🔥 ลบค่าเก่าทิ้งทันที
-localStorage.removeItem("savedTime");
+let seconds;
 
-// เริ่มใหม่ที่ 05:40:00
-let seconds = (5 * 3600) + (40 * 60);
+// ถ้ามีค่าเก่า → ใช้ค่าต่อ
+if (localStorage.getItem("savedTime")) {
+  seconds = parseInt(localStorage.getItem("savedTime"));
+} 
+// ถ้าไม่มีเลย (ครั้งแรก) → เริ่ม 5:40:00
+else {
+  seconds = (5 * 3600) + (40 * 60);
+  localStorage.setItem("savedTime", seconds);
+}
 
 function updateTimer() {
   seconds++;
+  localStorage.setItem("savedTime", seconds);
 
   let hrs = Math.floor(seconds / 3600);
   let mins = Math.floor((seconds % 3600) / 60);
@@ -50,6 +57,7 @@ function updateTimer() {
     String(secs).padStart(2, '0');
 }
 
+updateTimer();
 setInterval(updateTimer, 1000);
 </script>
 
