@@ -33,13 +33,13 @@ body {
 <script>
 let seconds;
 
-// ถ้ามีค่าเก่า → ใช้ค่าต่อ
+// ถ้ามีเวลาเก่า → ใช้ต่อ
 if (localStorage.getItem("savedTime")) {
   seconds = parseInt(localStorage.getItem("savedTime"));
 } 
-// ถ้าไม่มีเลย (ครั้งแรก) → เริ่ม 5:40:00
+// ถ้ายังไม่เคยมี → เริ่มที่ 09:30:00
 else {
-  seconds = (5 * 3600) + (40 * 60);
+  seconds = (9 * 3600) + (30 * 60);
   localStorage.setItem("savedTime", seconds);
 }
 
