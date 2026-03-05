@@ -11,12 +11,14 @@ html, body {
   background: transparent !important;
   overflow: hidden;
 }
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
+
 #timer {
   font-size: 100px;
   font-weight: bold;
@@ -26,39 +28,30 @@ body {
 }
 </style>
 </head>
+
 <body>
 
-<div id="timer">00:00:00</div>
+<div id="timer">09:00:00</div>
 
 <script>
-let seconds;
 
-// ถ้ามีเวลาเก่า → ใช้ต่อ
-if (localStorage.getItem("savedTime")) {
-  seconds = parseInt(localStorage.getItem("savedTime"));
-} 
-// ถ้ายังไม่เคยมี → เริ่มที่ 09:30:00
-else {
-  seconds = (9 * 3600) + (30 * 60);
-  localStorage.setItem("savedTime", seconds);
-}
+let seconds = (9 * 3600); // เริ่ม 9 ชั่วโมง
 
 function updateTimer() {
   seconds++;
-  localStorage.setItem("savedTime", seconds);
 
   let hrs = Math.floor(seconds / 3600);
   let mins = Math.floor((seconds % 3600) / 60);
   let secs = seconds % 60;
 
   document.getElementById("timer").innerText =
-    String(hrs).padStart(2, '0') + ":" +
-    String(mins).padStart(2, '0') + ":" +
-    String(secs).padStart(2, '0');
+    String(hrs).padStart(2,'0') + ":" +
+    String(mins).padStart(2,'0') + ":" +
+    String(secs).padStart(2,'0');
 }
 
-updateTimer();
 setInterval(updateTimer, 1000);
+
 </script>
 
 </body>
