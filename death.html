@@ -5,75 +5,43 @@
 <title>Death Counter</title>
 
 <style>
-html, body {
+html,body{
 margin:0;
 padding:0;
 background:transparent;
-font-family:Arial;
+overflow:hidden;
+font-family:Arial, sans-serif;
+text-align:center;
+}
+
+#title{
+font-size:60px;
+color:white;
+text-shadow:0 0 10px black;
 }
 
 #counter{
-font-size:120px;
+font-size:150px;
 color:red;
 font-weight:bold;
-text-align:center;
-text-shadow:0 0 20px black;
-}
-
-#controls{
-position:absolute;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-}
-
-button{
-font-size:20px;
-margin:5px;
-padding:10px 20px;
+text-shadow:0 0 30px black;
 }
 </style>
-
 </head>
 
 <body>
 
+<div id="title">DEAD</div>
 <div id="counter">0</div>
-
-<div id="controls">
-<button onclick="add()">+1</button>
-<button onclick="minus()">-1</button>
-<button onclick="reset()">Reset</button>
-</div>
 
 <script>
 
-let deaths = 0;
-
 function update(){
-document.getElementById("counter").innerText = deaths;
+let value = localStorage.getItem("deathcount") || 0;
+document.getElementById("counter").innerText = value;
 }
 
-function add(){
-deaths++;
-update();
-}
-
-function minus(){
-if(deaths>0) deaths--;
-update();
-}
-
-function reset(){
-deaths = 0;
-update();
-}
-
-document.addEventListener("keydown",function(e){
-if(e.key.toLowerCase()=="l"){
-add();
-}
-});
+setInterval(update,200);
 
 </script>
 
