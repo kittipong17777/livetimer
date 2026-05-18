@@ -1,57 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Live Timer</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>2 Hour Countdown</title>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: transparent !important;
-  overflow: hidden;
-}
+  body {
+    margin: 0;
+    background: transparent;
+    font-family: Arial, sans-serif;
+  }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-#timer {
-  font-size: 100px;
-  font-weight: bold;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-shadow: 0 0 30px rgba(0,0,0,0.9);
-}
+  .timer {
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-top: 20%;
+    text-shadow: 0 0 10px black;
+  }
 </style>
 </head>
 
 <body>
 
-<div id="timer">00:00:00</div>
+<div class="timer" id="timer">02:00:00</div>
 
 <script>
+let totalSeconds = 2 * 60 * 60; // 2 hours
 
-let seconds = (0 * 3600); // เริ่ม 15 ชั่วโมง
+function formatTime(sec) {
+  let h = Math.floor(sec / 3600);
+  let m = Math.floor((sec % 3600) / 60);
+  let s = sec % 60;
 
-function updateTimer() {
-  seconds++;
-
-  let hrs = Math.floor(seconds / 3600);
-  let mins = Math.floor((seconds % 3600) / 60);
-  let secs = seconds % 60;
-
-  document.getElementById("timer").innerText =
-    String(hrs).padStart(2,'0') + ":" +
-    String(mins).padStart(2,'0') + ":" +
-    String(secs).padStart(2,'0');
+  return (
+    String(h).padStart(2, '0') + ":" +
+    String(m).padStart(2, '0') + ":" +
+    String(s).padStart(2, '0')
+  );
 }
 
-setInterval(updateTimer, 1000);
+function startCountdown() {
+  let current = totalSeconds;
 
+  setInterval(() => {
+    document.getElementById("timer").innerText = formatTime(current);
+
+    current--;
+
+    if (current < 0) {
+      current = totalSeconds; // รีเซ็ตใหม่เมื่อครบ
+    }
+  }, 1000);
+}
+
+startCountdown();
 </script>
 
 </body>
